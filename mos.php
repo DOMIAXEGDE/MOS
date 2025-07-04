@@ -915,7 +915,7 @@ function initializeSystemFiles() {
     global $config;
     
     // Create MOS logo SVG
-    $logoPath = $config['filesystem']['system_dir'] . '/logo.svg';
+    $logoPath = $config['filesystem']['system_dir'] . '/logo.png';
     if (!file_exists($logoPath)) {
         $logoSvg = <<<SVG
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
@@ -1935,7 +1935,7 @@ initializeSystemFiles();
 <body>
     <!-- Splash Screen -->
     <div id="mos-splash-screen" class="mos-splash-screen">
-        <img id="splash-logo" src="mos.php?file=/system/logo.svg" alt="MOS Logo">
+        <img id="splash-logo" src="mos.php?file=/system/logo.png" alt="MOS Logo">
         <div class="mos-loading-indicator">
             <div class="mos-loading-bar">
                 <div id="mos-loading-progress" class="mos-loading-progress"></div>
@@ -1948,7 +1948,7 @@ initializeSystemFiles();
     <div id="mos-login-screen" class="mos-login-screen">
         <div class="mos-login-container">
             <div class="mos-login-logo">
-                <img src="mos.php?file=/system/logo.svg" alt="MOS Logo">
+                <img src="mos.php?file=/system/logo.png" alt="MOS Logo">
             </div>
             <h2 class="mos-login-heading">Welcome to MOS</h2>
             <form id="mos-login-form" class="mos-login-form">
@@ -4979,7 +4979,7 @@ initializeSystemFiles();
                                 <h2 class="mos-settings-section-title">About MOS</h2>
                                 
                                 <div style="text-align: center; margin-bottom: 20px;">
-                                    <img src="mos.php?file=/system/logo.svg" alt="MOS Logo" style="width: 100px; height: 100px;">
+                                    <img src="mos.php?file=/system/logo.png" alt="MOS Logo" style="width: 100px; height: 100px;">
                                     <h3 style="margin-top: 10px;">MOS - My Operating System</h3>
                                     <div>Version ${systemInfo.version} (Build ${systemInfo.build})</div>
                                 </div>
