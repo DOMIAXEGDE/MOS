@@ -963,6 +963,25 @@ Enjoy exploring MOS!
 TXT;
         file_put_contents($readmePath, $readme);
     }
+
+    // Create themes directory and default theme files
+    $themesDir = $config['filesystem']['system_dir'] . '/themes';
+    if (!file_exists($themesDir)) {
+        mkdir($themesDir, 0755, true);
+    }
+
+    $defaultThemes = [
+        'dark' => "/* Default dark theme */",
+        'light' => "/* Default light theme */",
+        'blue' => "/* Default blue theme */"
+    ];
+
+    foreach ($defaultThemes as $themeName => $content) {
+        $themePath = "$themesDir/{$themeName}.css";
+        if (!file_exists($themePath)) {
+            file_put_contents($themePath, $content);
+        }
+    }
 }
 
 // Initialize system files
@@ -976,6 +995,7 @@ initializeSystemFiles();
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="MOS - My Operating System">
     <meta name="theme-color" content="#1e1e1e">
+    <link id="theme-stylesheet" rel="stylesheet" href="mos.php?file=/system/themes/dark.css">
     <title>MOS - My Operating System</title>
     
     <!-- Inline Styles -->
@@ -2866,13 +2886,14 @@ initializeSystemFiles();
              * @param {string} status - New status
              */
             _updateState(status) {
+                const previous = this.state.status;
                 this.state.status = status;
                 this.log.info(`Kernel state updated: ${status}`);
-                
+
                 // Emit state change event if events module is available
                 if (this.modules.events) {
                     this.modules.events.emit('kernel:stateChanged', {
-                        previousStatus: this.state.status,
+                        previousStatus: previous,
                         currentStatus: status
                     });
                 }
@@ -5030,13 +5051,13 @@ initializeSystemFiles();
              */
             applyTheme(theme) {
                 document.body.className = `mos-theme-${theme}`;
-                
-                // Update theme stylesheet
+
+                // Update theme stylesheet if present
                 const themeLink = document.getElementById('theme-stylesheet');
                 if (themeLink) {
-                    themeLink.href = `/themes/${theme}.css`;
+                    themeLink.href = `mos.php?file=/system/themes/${theme}.css`;
                 }
-                
+
                 this.log.info(`Applied theme: ${theme}`);
             }
             
